@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SingleAnalyst
 
 ## Introduction
@@ -100,3 +101,6 @@ nnf = index.get_knn_vis(i_qx)
 
 ## Contacts
 yuyifei@tongji.edu.cn or qiliu@tongji.edu.cn
+=======
+# Singleanalyst
+>>>>>>> refs/remotes/origin/master
