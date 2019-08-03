@@ -1,8 +1,8 @@
 # SingleAnalyst
 
 ## Introduction
-SingleAnalyst is an integrated platform for single-cell RNA-seq data analysis,
-focusing on the cell type assignment problem in single cell RNA-seq analysis.
+** SingleAnalyst ** is an integrated platform for single-cell RNA-seq data analysis,
+focusing on the cell type assignment problem.
 
 SingleAnalyst implemented various quality control, normalization and feature selection methods
 for data preprocessing, and featured a k-nearest neighbors based cell type annotation and assignment methods 
@@ -12,13 +12,13 @@ for data preprocessing, and featured a k-nearest neighbors based cell type annot
 * python3 >= 3.6
 * linux / WSL
 
-## install
-1. install some dependency by conda (pip did not work properly for those package)
+## Install
+1. install some dependency by conda or system's package manager (pip did not work properly for those package)
     ```sh
     conda install numpy bitarray
     conda install faiss-cpu -c pytorch
     ```
-2. install package
+2. Install SingleAnalyst
     ```sh
     pip install .
     ```
@@ -34,7 +34,7 @@ gene_info = indexedList(gene_list)
 cell_info = infoTable(
     ['cell_list', 'cell_type'],
     [cell_list, cell_type_list])
-ex_m = mmread(os.path.join(path, 'expr_m.mtx')).todense()
+ex_m =  np.loadtxt('expression',delimiter="\t", skiprows=1)
 dataset = singleCellData(ex_m, gene_info, cell_info)
 ```
 
@@ -44,7 +44,7 @@ import SingleAnalyst
 datapath = 'output/xin/'
 data_set = SingleAnalyst.dataIO.read_data_mj(datapath)
 ```
-#### quality control
+#### Quality control
 Filter out low quality data
 ```python
 f1 = SingleAnalyst.filter.minGeneCellfilter()
@@ -54,15 +54,15 @@ dataset = dataset.apply_proc(f1)
 dataset = dataset.apply_proc(f2)
 ```
 
-#### normalization
+#### Normalization
 Data normalization
 ```
 norm = SingleAnalyst.normalization.logNormlization()
 dataset.apply_proc(norm)
 ```
 
-#### feature selection
-Select informative feature
+#### Feature selection
+Select informative feature.
 ```python
 s1 = SingleAnalyst.selection.dropOutSelecter(num_features=500)
 s2 = SingleAnalyst.selection.highlyVarSelecter(num_features=500)
@@ -71,7 +71,7 @@ s3 = SingleAnalyst.selection.randomSelecter(num_features=500)
 dataset.apply_proc(s1)
 ```
 
-### index build and similar search
+### Index build and similar search
 Split data for test
 ```python
 train_d, test_d = SingleAnalyst.process.tt_split(dataset)
@@ -79,20 +79,20 @@ refdata = SingleAnalyst.RefData.queryData(train_d)
 q_xdata = SingleAnalyst.RefData.queryData(test_d)
 ```
 
-#### build index for reference data
+#### Build index for reference data
 ```python
 nn_indexer = SingleAnalyst.index.faiss_baseline_nn()
 
 index = SingleAnalyst.index.indexRef(refdata, nn=nn_indexer)
 ```
 
-#### knn search and celltype annotation
+#### kNN search and cell type annotation
 ```python
 qxm = q_xdata.get_qxm(gene_list=index.gene_ref.get_list())
 
 res = index.get_predict(qxm=qxm)
 
-# visually insapect knn result  
+# visually inspect knn result  
 i_qx = qxm[19,:]
 nnf = index.get_knn_vis(i_qx)
 ```
