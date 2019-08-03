@@ -47,8 +47,8 @@ data_set = SingleAnalyst.dataIO.read_data_mj(datapath)
 #### quality control
 Filter out low quality data
 ```python
-f1 = scr.filter.minGeneCellfilter()
-f2 = scr.filter.minCellGenefilter()
+f1 = SingleAnalyst.filter.minGeneCellfilter()
+f2 = SingleAnalyst.filter.minCellGenefilter()
 
 dataset = dataset.apply_proc(f1)
 dataset = dataset.apply_proc(f2)
@@ -57,16 +57,16 @@ dataset = dataset.apply_proc(f2)
 #### normalization
 Data normalization
 ```
-norm = scr.normalization.logNormlization()
+norm = SingleAnalyst.normalization.logNormlization()
 dataset.apply_proc(norm)
 ```
 
 #### feature selection
 Select informative feature
 ```python
-s1 = scr.selection.dropOutSelecter(num_features=500)
-s2 = scr.selection.highlyVarSelecter(num_features=500)
-s3 = scr.selection.randomSelecter(num_features=500)
+s1 = SingleAnalyst.selection.dropOutSelecter(num_features=500)
+s2 = SingleAnalyst.selection.highlyVarSelecter(num_features=500)
+s3 = SingleAnalyst.selection.randomSelecter(num_features=500)
 
 dataset.apply_proc(s1)
 ```
@@ -74,16 +74,16 @@ dataset.apply_proc(s1)
 ### index build and similar search
 Split data for test
 ```python
-train_d, test_d = scr.process.tt_split(dataset)
-refdata = scr.RefData.queryData(train_d)
-q_xdata = scr.RefData.queryData(test_d)
+train_d, test_d = SingleAnalyst.process.tt_split(dataset)
+refdata = SingleAnalyst.RefData.queryData(train_d)
+q_xdata = SingleAnalyst.RefData.queryData(test_d)
 ```
 
 #### build index for reference data
 ```python
-nn_indexer = scr.index.faiss_baseline_nn()
+nn_indexer = SingleAnalyst.index.faiss_baseline_nn()
 
-index = scr.index.indexRef(refdata, nn=nn_indexer)
+index = SingleAnalyst.index.indexRef(refdata, nn=nn_indexer)
 ```
 
 #### knn search and celltype annotation
