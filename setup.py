@@ -14,12 +14,13 @@ setup(
     install_requires=[
         'numpy',
         'scipy',
-        'sklearn',
+        'scikit-learn',
         'faiss',
         'matplotlib',
         'seaborn',
         'pandas',
-        'feather',
-        'h5py'
+        'feather-format',
+        'h5py',
+        'nearpy'
     ]
 )
