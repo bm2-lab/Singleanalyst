@@ -8,25 +8,23 @@ introducing several approximate algorithms.
 
 
 **SingleAnalyst** consists of three part: **data preprocessing**, **data inspecting** and **knn based cell type assignment**
-  * **data preprocessing**: SingleAnalyst inquired multiple quality control and data normalization methods, which conventionally 
-  applied in single-cell RNA-seq analysis.
-  * **data inspecting**: SingleAnalyst employed a couple of useful visualization function for data investigation, as well as a 
-  embedded neighbor density based cluster methods.
-  * **knn based cell type assignment**: SingleAnalyst implemented a k-nearest neighbors based cell type annotation methods. 
-  Furthermore, for large-scale single cell RNA-seq data analysis several approximate nearest neighbors methods were deployed, 
-  providing the ability to deal with data of variety scale. 
+
+  * **Data preprocessing**: SingleAnalyst implemented multiple quality control, data normalization and feature selection methods, which are conventionally applied in single-cell RNA-seq analysis.
+  * **Data inspecting**: SingleAnalyst employed a couple of useful visualization functions for data investigation, as well as a embedded neighbor density based cluster method.
+  * **kNN based cell type assignment**: SingleAnalyst implemented a k-nearest neighbors based cell type annotation methods. Furthermore, for large-scale single cell RNA-seq data analysis several approximate nearest neighbors methods were deployed, providing the ability to deal with data of variety scale. 
+
  
 ## Requirement
 * python3 >= 3.6
 * linux
 
 ## Install
-1. install some dependency by conda or system's package manager (as pip did not work properly for those packages)
+1. Install some dependencies by [Anaconda](https://www.anaconda.com) or system's package manager (as pip did not work properly for those packages)
     ```sh
     conda install numpy bitarray
     conda install faiss-cpu -c pytorch
     ```
-2. download source code
+2. Download SingleAnalyst
     ```sh
     git clone git@github.com:bm2-lab/Singleanalyst.git
     ```
