@@ -1,7 +1,7 @@
 # SingleAnalyst
 
 ## Introduction
-** SingleAnalyst ** is an integrated platform for single-cell RNA-seq data analysis,
+**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis,
 focusing on the cell type assignment problem.
 
 SingleAnalyst implemented various quality control, normalization and feature selection methods
