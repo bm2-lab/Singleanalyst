@@ -1,13 +1,18 @@
 # SingleAnalyst
 
 ## Introduction
-**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis,
-focusing on the cell type assignment problem. SingleAnalyst implemented various quality control, normalization and feature selection methods for data preprocessing, and featured a k-nearest neighbors based cell type annotation and assignment methods. And extended the method to large scale by introducing several approximate algorithms.
+**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis,focusing on the cell type assignment problem. 
+SingleAnalyst implemented various quality control, normalization and feature selection methods for data preprocessing, and 
+featured a k-nearest neighbors based cell type annotation and assignment methods. And extended the method to large scale by 
+introducing several approximate algorithms.
+
 
 **SingleAnalyst** consists of three part: **data preprocessing**, **data inspecting** and **knn based cell type assignment**
+
   * **Data preprocessing**: SingleAnalyst implemented multiple quality control, data normalization and feature selection methods, which are conventionally applied in single-cell RNA-seq analysis.
   * **Data inspecting**: SingleAnalyst employed a couple of useful visualization functions for data investigation, as well as a embedded neighbor density based cluster method.
   * **kNN based cell type assignment**: SingleAnalyst implemented a k-nearest neighbors based cell type annotation methods. Furthermore, for large-scale single cell RNA-seq data analysis several approximate nearest neighbors methods were deployed, providing the ability to deal with data of variety scale. 
+
  
 ## Requirement
 * python3 >= 3.6
