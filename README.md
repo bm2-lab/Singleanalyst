@@ -1,26 +1,32 @@
 # SingleAnalyst
 
 ## Introduction
-** SingleAnalyst ** is an integrated platform for single-cell RNA-seq data analysis,
-focusing on the cell type assignment problem.
+**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis,
+focusing on the cell type assignment problem. SingleAnalyst implemented various quality control, normalization and feature selection methods for data preprocessing, and featured a k-nearest neighbors based cell type annotation and assignment methods. And extended the method to large scale by introducing several approximate algorithms.
 
-SingleAnalyst implemented various quality control, normalization and feature selection methods
-for data preprocessing, and featured a k-nearest neighbors based cell type annotation and assignment methods 
-
+**SingleAnalyst** consists of three part: **data preprocessing**, **data inspecting** and **knn based cell type assignment**
+  * **data preprocessing**: SingleAnalyst inquired multiple quality control and data normalization methods, which conventionally applied in single-cell RNA-seq analysis.
+  * **data inspecting**: SingleAnalyst employed a couple of useful visualization function for data investigation, as well as a embedded neighbor density based cluster methods.
+  * **knn based cell type assignment**: SingleAnalyst implemented a k-nearest neighbors based cell type annotation methods. Furthermore, for large-scale single cell RNA-seq data analysis several approximate nearest neighbors methods were deployed, providing the ability to deal with data of variety scale. 
  
 ## Requirement
 * python3 >= 3.6
-* linux / WSL
+* linux
 
 ## Install
-1. install some dependency by conda or system's package manager (pip did not work properly for those package)
+1. install some dependency by conda or system's package manager (as pip did not work properly for those packages)
     ```sh
     conda install numpy bitarray
     conda install faiss-cpu -c pytorch
     ```
+2. download source code
+    ```sh
+    git clone git@github.com:bm2-lab/Singleanalyst.git
+    ```
 2. Install SingleAnalyst
     ```sh
-    pip install .
+    cd 
+    pip install ./Singleanalyst
     ```
 
 ## Usage
@@ -30,6 +36,7 @@ for data preprocessing, and featured a k-nearest neighbors based cell type annot
 Read data, and create a singleCellData object.
 ```python
 from SingleAnalyst.basic import indexedList, infoTable, singleCellData
+
 gene_info = indexedList(gene_list)
 cell_info = infoTable(
     ['cell_list', 'cell_type'],
@@ -41,9 +48,19 @@ dataset = singleCellData(ex_m, gene_info, cell_info)
 Or, read from saved data
 ```python
 import SingleAnalyst
-datapath = 'output/xin/'
+
+datapath = 'example_data'
 data_set = SingleAnalyst.dataIO.read_data_mj(datapath)
 ```
+
+After data was loaded, there are tools for visually inspected data
+```python
+SingleAnalyst.vis.plot_g_e(dataset, log=True)
+SingleAnalyst.vis.dist_plot(dataset)
+```
+![plot_g_e](fig/plot_e_g.png)
+![dist_plot](fig/plot_dist.png)
+
 #### Quality control
 Filter out low quality data
 ```python
@@ -70,9 +87,18 @@ s3 = SingleAnalyst.selection.randomSelecter(num_features=500)
 
 dataset.apply_proc(s1)
 ```
+The selected featrues, could be visualized
+```python
+# random pick one feature
+one_f = np.random.choice(np.arange(dataset.gene_num))
+gn = dataset.index_to_gene([one_f])
+v_plot1 = scr.vis.gene_violinplot(dataset, gn[0])
+```
+![dist_plot](fig/one_f.png)
+
 
 ### Index build and similar search
-Split data for test
+For illustration purpose, we split data for test
 ```python
 train_d, test_d = SingleAnalyst.process.tt_split(dataset)
 refdata = SingleAnalyst.RefData.queryData(train_d)
@@ -96,7 +122,7 @@ res = index.get_predict(qxm=qxm)
 i_qx = qxm[19,:]
 nnf = index.get_knn_vis(i_qx)
 ```
-
+![dist_plot](fig/knn_res.png)
 
 ## Contacts
 yuyifei@tongji.edu.cn or qiliu@tongji.edu.cn
