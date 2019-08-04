@@ -30,7 +30,6 @@ introducing several approximate algorithms.
     ```
 2. Install SingleAnalyst
     ```sh
-    cd 
     pip install ./Singleanalyst
     ```
 
