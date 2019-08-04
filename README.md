@@ -1,10 +1,9 @@
 # SingleAnalyst
 
 ## Introduction
-**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis,focusing on the cell type assignment problem. 
+**SingleAnalyst** is an integrated platform for single-cell RNA-seq data analysis, focusing on the cell type assignment problem. 
 SingleAnalyst implemented various quality control, normalization and feature selection methods for data preprocessing, and 
-featured a k-nearest neighbors based cell type annotation and assignment methods. And extended the method to large scale by 
-introducing several approximate algorithms.
+featured a k-nearest neighbors based cell type annotation and assignment methods. It also extended such method to large scale single cell RNA-seq data by introducing several approximate algorithms.
 
 
 **SingleAnalyst** consists of three part: **data preprocessing**, **data inspecting** and **knn based cell type assignment**
@@ -57,7 +56,7 @@ datapath = 'example_data'
 data_set = SingleAnalyst.dataIO.read_data_mj(datapath)
 ```
 
-After data was loaded, there are tools for visually inspected data
+After data was loaded, there are several tools for visually inspected the data
 ```python
 SingleAnalyst.vis.plot_g_e(dataset, log=True)
 SingleAnalyst.vis.dist_plot(dataset)
@@ -83,7 +82,7 @@ dataset.apply_proc(norm)
 ```
 
 #### Feature selection
-Select informative feature.
+Select informative features.
 ```python
 s1 = SingleAnalyst.selection.dropOutSelecter(num_features=500)
 s2 = SingleAnalyst.selection.highlyVarSelecter(num_features=500)
@@ -91,7 +90,7 @@ s3 = SingleAnalyst.selection.randomSelecter(num_features=500)
 
 dataset.apply_proc(s1)
 ```
-The selected featrues, could be visualized
+The selected features can be visualized
 ```python
 # random pick one feature
 one_f = np.random.choice(np.arange(dataset.gene_num))
@@ -101,7 +100,7 @@ v_plot1 = scr.vis.gene_violinplot(dataset, gn[0])
 ![dist_plot](fig/one_f.png)
 
 
-### Index build and similar search
+### Index build and similarity-based search
 For illustration purpose, we split data for test
 ```python
 train_d, test_d = SingleAnalyst.process.tt_split(dataset)
